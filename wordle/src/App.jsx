@@ -10,8 +10,9 @@ function App() {
   const [board, setBoard] = useState(boardDefault);
   const [currAttempt, setCurrAttempt] = useState({attempt: 0, letter: 0});
   const [wordSet, setWordSet] = useState(new Set());
+  const [disabledLetters, setDisabledLetters] = useState([])
 
-  const correctWord = 'HEART';
+  const correctWord = 'adore';
 
   useEffect(() => {
     generateWordSet().then((words) => {
@@ -61,6 +62,8 @@ function App() {
         correctWord, 
         setBoard, 
         currAttempt, 
+        disabledLetters,
+        setDisabledLetters, 
         setCurrAttempt, 
         onSelectLetter, 
         onDeleteLetter, 
