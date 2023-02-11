@@ -7,12 +7,17 @@ export default function Key({ keyVal, bigKey }) {
   const { board, setBoard, currAttempt, setCurrAttempt } = useContext(AppContext)
 
   const selectLetter = () => {
-    if (currAttempt.letterPosition > 4) return;
-    const newBoard = [...board]
-    newBoard[currAttempt.attempt][currAttempt.letterPos] = keyVal
-    setBoard(newBoard)
-    setCurrAttempt({...currAttempt, letterPos: currAttempt.letterPos + 1});
-  }
+    if (keyVal === 'ENTER'){
+      if (currAttempt.letterPos !== 5) return;
+      setCurrAttempt({attempt: currAttempt.attempt + 1, letterPos: 0})
+    }else{
+      if (currAttempt.letterPosition > 4) return;
+      const newBoard = [...board]
+      newBoard[currAttempt.attempt][currAttempt.letterPos] = keyVal
+      setBoard(newBoard)
+      setCurrAttempt({...currAttempt, letterPos: currAttempt.letterPos + 1});
+    }
+  };
   return (
     <div className="key" id={bigKey && 'big'} onClick={selectLetter}>
       {keyVal}
