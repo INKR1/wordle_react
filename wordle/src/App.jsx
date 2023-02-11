@@ -1,16 +1,23 @@
 import './App.css';
 import Board from './Components/Board'
 import Keyboard from './Components/Keyboard';
-import { createContext, useState } from 'react'
-import { boardDefault } from "./Words"
+import { createContext, useState, useEffect } from 'react'
+import { boardDefault, generateWordSet } from "./Words"
 
 export const AppContext = createContext();
 
 function App() {
   const [board, setBoard] = useState(boardDefault);
   const [currAttempt, setCurrAttempt] = useState({attempt: 0, letter: 0});
+  const [wordSet, setWordSet] = useState(new Set());
 
-  const correctWord = 'HEART'
+  const correctWord = 'HEART';
+
+  useEffect(() => {
+    generateWordSet().then((words) => {
+      setWordSet(words.wordSet)
+    })
+  },[])
 
   const onSelectLetter = (key) => {
     if (currAttempt.letter > 4) return;
@@ -30,7 +37,19 @@ function App() {
 
   const onEnter = () => {
     if (currAttempt.letter !== 5) return;
-      setCurrAttempt({ attempt: currAttempt.attempt + 1, letter: 0 })
+
+    let currWord = "";
+    for (let i = 0; i < 5; i++) {
+      currWord += board[currAttempt.attempt][i];
+    }
+    if (wordSet.has(currWord.toLowerCase())) {
+      setCurrAttempt({ attempt: currAttempt.attempt + 1, letter: 0 });
+    } else {
+      alert("Word not found");
+    }
+    if (currWord === correctWord) {
+      alert('Corect! Game Ended')
+    }
   }
   return (
     <div className="App">
