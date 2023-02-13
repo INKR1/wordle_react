@@ -17,8 +17,8 @@ function App() {
   useEffect(() => {
     generateWordSet().then((words) => {
       setWordSet(words.wordSet)
-    })
-  },[])
+    });
+  }, [])
 
   const onSelectLetter = (key) => {
     if (currAttempt.letter > 4) return;

@@ -56,10 +56,10 @@ export default function Keyboard() {
       </div>
       <div className="line3">
         <Key keyVal={'ENTER'} bigKey />
-         {keys3.map((key) => {
+        {keys3.map((key) => {
           return <Key keyVal={key} disabled={disabledLetters.includes(key)}/>;
         })}
-        <key keyVal={'DELETE'} bigKey/>
+        <Key keyVal={'DELETE'} bigKey />
         </div>
     </div>
   )
